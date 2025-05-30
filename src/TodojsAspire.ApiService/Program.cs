@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("TodoDbContext") ?? throw new InvalidOperationException("Connection string 'TodoDbContext' not found.");
+
+builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlite(connectionString));
 
 // Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
@@ -36,6 +40,8 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast");
 
 app.MapDefaultEndpoints();
+
+app.MapTodoEndpoints();
 
 app.Run();
 
