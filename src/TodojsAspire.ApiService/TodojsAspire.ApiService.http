@@ -1,0 +1,34 @@
+@todoapibaseurl = https://localhost:7596
+
+GET {{todoapibaseurl}}/api/Todo/
+
+###
+
+# Create a new todo
+POST {{todoapibaseurl}}/api/Todo/
+Content-Type: application/json
+
+{
+  "title": "Sample Todo",
+  "isComplete": false,
+  "position": 1
+}
+
+###
+
+PUT {{todoapibaseurl}}/api/Todo/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Updated Todo",
+  "isComplete": true,
+  "position": 2
+}
+
+###
+
+# Delete a todo
+DELETE {{todoapibaseurl}}/api/Todo/1
+
+###
