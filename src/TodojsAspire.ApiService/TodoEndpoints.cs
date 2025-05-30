@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TodojsAspire.ApiService;
 
@@ -55,5 +56,26 @@ public static class TodoEndpoints
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })
         .WithName("DeleteTodo");
+
+        // Endpoint to swap the position of two Todo items
+        group.MapPost("/swap-position/{id1:int}/{id2:int}", async Task<Results<Ok, NotFound>> (int id1, int id2, TodoDbContext db) =>
+        {
+            var todo1 = await db.Todo.FirstOrDefaultAsync(t => t.Id == id1);
+            var todo2 = await db.Todo.FirstOrDefaultAsync(t => t.Id == id2);
+
+            if (todo1 == null || todo2 == null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            // Swap the position values
+            var temp = todo1.Position;
+            todo1.Position = todo2.Position;
+            todo2.Position = temp;
+
+            await db.SaveChangesAsync();
+            return TypedResults.Ok();
+        })
+        .WithName("SwapTodoPosition");
     }
 }

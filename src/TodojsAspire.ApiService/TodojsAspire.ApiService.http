@@ -2,6 +2,7 @@
 
 GET {{todoapibaseurl}}/api/Todo/
 
+
 ###
 
 # Create a new todo
@@ -31,4 +32,7 @@ Content-Type: application/json
 # Delete a todo
 DELETE {{todoapibaseurl}}/api/Todo/1
 
+###
+
+POST https://localhost:7596/api/Todo/swap-position/2/3
 ###
