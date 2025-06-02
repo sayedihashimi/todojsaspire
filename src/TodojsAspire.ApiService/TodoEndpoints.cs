@@ -41,7 +41,7 @@ public static class TodoEndpoints
 
         group.MapPost("/", async (Todo todo, TodoDbContext db) =>
         {
-            if (todo.Position == 0) {
+            if (todo.Position <= 0) {
                 // Get the current max position from the database
                 int maxPosition = await db.Todo.MaxAsync(t => (int?)t.Position) ?? 0;
                 todo.Position = maxPosition + 1;
