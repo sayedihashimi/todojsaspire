@@ -10,13 +10,40 @@ POST {{todoapibaseurl}}/api/Todo/
 Content-Type: application/json
 
 {
-  "title": "Sample Todo",
+  "title": "Sample Todo2",
   "isComplete": false,
-  "position": 1
+  "position": 2
 }
 
 ###
+POST {{todoapibaseurl}}/api/Todo/
+Content-Type: application/json
 
+{
+  "title": "Sample Todo2",
+  "isComplete": false,
+  "position": 2
+}
+###
+POST {{todoapibaseurl}}/api/Todo/
+Content-Type: application/json
+
+{
+  "title": "Sample Todo3",
+  "isComplete": false,
+  "position": 3
+}
+
+###
+POST {{todoapibaseurl}}/api/Todo/
+Content-Type: application/json
+
+{
+  "title": "Sample Todo5",
+  "isComplete": false
+}
+
+###
 PUT {{todoapibaseurl}}/api/Todo/1
 Content-Type: application/json
 
