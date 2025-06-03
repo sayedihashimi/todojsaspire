@@ -82,5 +82,29 @@ public static class TodoEndpoints
             return TypedResults.Ok();
         })
         .WithName("SwapTodoPosition");
+
+        // Endpoint to move a task up in the list (decrease its position by 1, swapping with the previous one)
+        group.MapPost("/move-up/{id:int}", async Task<Results<Ok, NotFound>> (int id, TodoDbContext db) =>
+        {
+            var todo = await db.Todo.FirstOrDefaultAsync(t => t.Id == id);
+            if (todo == null)
+            {
+                return TypedResults.NotFound();
+            }
+            // Find the todo with position one less than the current todo
+            var prevTodo = await db.Todo.FirstOrDefaultAsync(t => t.Position == todo.Position - 1);
+            if (prevTodo == null)
+            {
+                // Already at the top or no previous todo
+                return TypedResults.Ok();
+            }
+            // Swap positions
+            int temp = todo.Position;
+            todo.Position = prevTodo.Position;
+            prevTodo.Position = temp;
+            await db.SaveChangesAsync();
+            return TypedResults.Ok();
+        })
+        .WithName("MoveTaskUp");
     }
 }
