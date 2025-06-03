@@ -67,18 +67,18 @@ function TodoList() {
     }
 
     async function moveTaskUp(index) {
-        // console.log(`moving todo ${index} up`);
-        // const todo = todos[index];
-        // const result = await fetch(`/api/Todo/move-up/${todo.id}`,{
-        //     method: "POST"
-        // });
+        console.log(`moving todo ${index} up`);
+        const todo = todos[index];
+        const result = await fetch(`/api/Todo/move-up/${todo.id}`,{
+            method: "POST"
+        });
 
-        // if(result.ok){
-        //     await getTodo();
-        // }
-        // else{
-        //     console.error('Error moving task up:', result.statusText);
-        // }
+        if(result.ok){
+            await getTodo();
+        }
+        else{
+            console.error('Error moving task up:', result.statusText);
+        }
     }
 
     function moveTaskDown(index) {

@@ -11,7 +11,7 @@ public static class TodoEndpoints
 
         group.MapGet("/", async (TodoDbContext db) =>
         {
-            return await db.Todo.ToListAsync();
+            return await db.Todo.OrderBy(t => t.Position).ToListAsync();
         })
         .WithName("GetAllTodos");
 
