@@ -9,4 +9,8 @@ builder.AddProject<Projects.TodojsAspire_Web>("webfrontend")
     .WithReference(apiService)
     .WaitFor(apiService);
 
+builder.AddNpmApp("todo-frontend", "../todo-frontend", "dev")
+    .WithReference(apiService)
+    .WithHttpEndpoint(targetPort: 5173);
+
 builder.Build().Run();

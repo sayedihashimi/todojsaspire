@@ -7,7 +7,7 @@ public static class TodoEndpoints
 {
     public static void MapTodoEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Todo");
+        var group = routes.MapGroup("/Todo");
 
         group.MapGet("/", async (TodoDbContext db) =>
         {
