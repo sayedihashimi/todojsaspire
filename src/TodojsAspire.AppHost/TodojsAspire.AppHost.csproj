@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TodojsAspire.ApiService\TodojsAspire.ApiService.csproj" />
-    <ProjectReference Include="..\TodojsAspire.Web\TodojsAspire.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

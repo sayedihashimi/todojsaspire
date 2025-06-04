@@ -8,8 +8,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodojsAspire.ServiceDefault
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodojsAspire.ApiService", "TodojsAspire.ApiService\TodojsAspire.ApiService.csproj", "{61069B04-4F83-4771-B1E6-5E1860B88946}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodojsAspire.Web", "TodojsAspire.Web\TodojsAspire.Web.csproj", "{977C276B-3A36-4E8D-ABA2-16AAD63648B0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,10 +26,6 @@ Global
 		{61069B04-4F83-4771-B1E6-5E1860B88946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61069B04-4F83-4771-B1E6-5E1860B88946}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61069B04-4F83-4771-B1E6-5E1860B88946}.Release|Any CPU.Build.0 = Release|Any CPU
-		{977C276B-3A36-4E8D-ABA2-16AAD63648B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{977C276B-3A36-4E8D-ABA2-16AAD63648B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{977C276B-3A36-4E8D-ABA2-16AAD63648B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{977C276B-3A36-4E8D-ABA2-16AAD63648B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

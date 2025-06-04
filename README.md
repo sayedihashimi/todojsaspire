@@ -26,9 +26,6 @@ todojsaspire/
 │   │   └── ...
 │   ├── TodojsAspire.ServiceDefaults/ # Shared service defaults
 │   │   └── ...
-│   └── TodojsAspire.Web/        # .NET Aspire Web project (Blazor, etc.)
-│       ├── Program.cs
-│       └── ...
 ```
 
 ## Solution Overview
@@ -44,7 +41,6 @@ todojsaspire/
     - `TodojsAspire.ApiService/`: Minimal API for managing todos (CRUD, reorder, etc.)
     - `TodojsAspire.AppHost/`: AppHost for orchestrating services
     - `TodojsAspire.ServiceDefaults/`: Shared configuration and extensions
-    - `TodojsAspire.Web/`: (Optional) Blazor or web UI project
 
 ## Getting Started
 
