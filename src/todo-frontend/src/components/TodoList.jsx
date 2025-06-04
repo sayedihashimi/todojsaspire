@@ -2,12 +2,6 @@ import { useState, useEffect } from 'react';
 import './TodoList.css';
 import TodoItem from './TodoItem';
 
-const initialTasks = [
-    { id: self.crypto.randomUUID(), text: 'Drink some coffee' },
-    { id: self.crypto.randomUUID(), text: 'Create a TODO app' },
-    { id: self.crypto.randomUUID(), text: 'Drink some more coffee' }
-];
-
 /**
  * Todo component represents the main TODO list application.
  * It allows users to add new tasks, delete tasks, and move tasks up or down in the list.
@@ -81,11 +75,18 @@ function TodoList() {
         }
     }
 
-    function moveTaskDown(index) {
-        if (index < tasks.length) {
-            const updatedTasks = [...tasks];
-            [updatedTasks[index], updatedTasks[index + 1]] = [updatedTasks[index + 1], updatedTasks[index]];
-            setTasks(updatedTasks);
+    async function moveTaskDown(index) {
+        console.log(`moving todo ${index} up`);
+        const todo = todos[index];
+        const result = await fetch(`/api/Todo/move-down/${todo.id}`,{
+            method: "POST"
+        });
+
+        if(result.ok){
+            await getTodo();
+        }
+        else{
+            console.error('Error moving task down:', result.statusText);
         }
     }
 

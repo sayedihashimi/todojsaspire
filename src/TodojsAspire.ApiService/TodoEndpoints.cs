@@ -41,14 +41,15 @@ public static class TodoEndpoints
 
         group.MapPost("/", async (Todo todo, TodoDbContext db) =>
         {
-            if (todo.Position <= 0) {
+            if (todo.Position <= 0)
+            {
                 // Get the current max position from the database
                 int maxPosition = await db.Todo.MaxAsync(t => (int?)t.Position) ?? 0;
                 todo.Position = maxPosition + 1;
             }
             db.Todo.Add(todo);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Todo/{todo.Id}",todo);
+            return TypedResults.Created($"/api/Todo/{todo.Id}", todo);
         })
         .WithName("CreateTodo");
 
@@ -68,10 +69,8 @@ public static class TodoEndpoints
             var todo1 = await db.Todo.FirstOrDefaultAsync(t => t.Id == id1);
             var todo2 = await db.Todo.FirstOrDefaultAsync(t => t.Id == id2);
 
-            if (todo1 == null || todo2 == null)
-            {
-                return TypedResults.NotFound();
-            }
+            if (todo1 is null || todo2 is null)
+            { return TypedResults.NotFound(); }
 
             // Swap the position values
             var temp = todo1.Position;
@@ -87,24 +86,45 @@ public static class TodoEndpoints
         group.MapPost("/move-up/{id:int}", async Task<Results<Ok, NotFound>> (int id, TodoDbContext db) =>
         {
             var todo = await db.Todo.FirstOrDefaultAsync(t => t.Id == id);
-            if (todo == null)
-            {
-                return TypedResults.NotFound();
-            }
-            // Find the todo with position one less than the current todo
-            var prevTodo = await db.Todo.FirstOrDefaultAsync(t => t.Position == todo.Position - 1);
-            if (prevTodo == null)
-            {
-                // Already at the top or no previous todo
-                return TypedResults.Ok();
-            }
+            if (todo is null)
+            { return TypedResults.NotFound(); }
+
+            // Find the todo with the largest position less than the current todo
+            var prevTodo = await db.Todo
+                .Where(t => t.Position < todo.Position)
+                .OrderByDescending(t => t.Position)
+                .FirstOrDefaultAsync();
+
+            if (prevTodo is null)
+            { return TypedResults.Ok(); }
+
             // Swap positions
-            int temp = todo.Position;
-            todo.Position = prevTodo.Position;
-            prevTodo.Position = temp;
+            (todo.Position, prevTodo.Position) = (prevTodo.Position, todo.Position);
             await db.SaveChangesAsync();
             return TypedResults.Ok();
         })
         .WithName("MoveTaskUp");
+
+        group.MapPost("/move-down/{id:int}", async Task<Results<Ok, NotFound>> (int id, TodoDbContext db) =>
+        {
+            var todo = await db.Todo.FirstOrDefaultAsync(t => t.Id == id);
+            if (todo is null)
+            { return TypedResults.NotFound(); }
+
+            // Find the todo with the smallest position greater than the current todo
+            var nextTodo = await db.Todo
+                .Where(t => t.Position > todo.Position)
+                .OrderBy(t => t.Position)
+                .FirstOrDefaultAsync();
+
+            if (nextTodo is null)
+            { return TypedResults.Ok(); } // Already at the bottom or no next todo
+
+            // Swap positions values
+            (todo.Position, nextTodo.Position) = (nextTodo.Position, todo.Position);
+            await db.SaveChangesAsync();
+            return TypedResults.Ok();
+        })
+        .WithName("MoveTaskDown");        
     }
 }
