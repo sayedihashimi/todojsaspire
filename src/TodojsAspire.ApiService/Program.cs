@@ -44,6 +44,8 @@ app.MapDefaultEndpoints();
 
 app.MapTodoEndpoints();
 
+app.UseFileServer();
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
